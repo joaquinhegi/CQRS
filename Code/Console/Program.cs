@@ -3,14 +3,73 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.IO;
+using Microsoft.Extensions.DependencyInjection;
+using Application.Interfaces;
+using Infrastructure.Repository;
+using Domain.Entities;
+using Application.Commands;
+using Application.Commands.DeletePerson;
+using Application.Queries;
+using Application.Interfaces.Query;
+using Application.Queries.GetPersonBetweenYear;
 
 namespace UIConsole
 {
     internal class Program
     {
         static void Main(string[] args)
-        {        
-            Console.WriteLine("Hello World!");
+        {
+            var serviceProvider = BuildServiceProvider();
+
+            try
+            {
+                var commandDispatcher = new CommandDispatcher(serviceProvider);
+                var queryDispatcher = new QueryDispatcher(serviceProvider);
+
+                //Add new Person
+                var addPerson = new AddPersonCommand { Id = 7, FirstName = "Daiana", LastName = "Fernandez", DateOfBirth = new DateTime(1995, 11, 21) };
+                commandDispatcher.Send(addPerson);
+
+                //Query Person by ID
+                var queryPerson = new GetPersonByIdCommand { Id = 7 };
+                var result = queryDispatcher.Send(queryPerson);
+                foreach (IResult person in result)
+                {
+                    Console.WriteLine(person.ToString());
+                }
+
+                //Delere Person
+                var deletePerson = new DeletePersonCommand { Id = 7 };
+                commandDispatcher.Send(deletePerson);
+
+                //Query All Product
+                var querybetweenPerson = new GetPersonBetweenYearCommand { StartYear = 1980, EndYear = 1995 };
+                var resultBetween = queryDispatcher.Send(querybetweenPerson);
+                foreach (IResult person in resultBetween)
+                {
+                    Console.WriteLine(person.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Console.ReadKey();
+        }
+
+        private static IServiceProvider BuildServiceProvider()
+        {
+            return new ServiceCollection()
+                    // Add data base context
+                    .AddSingleton<IRepository, Repository>()
+                    // Add commands handlers
+                    .AddScoped<ICommandHandler<AddPersonCommand>, AddPersonCommandHandler>()
+                    .AddScoped<ICommandHandler<DeletePersonCommand>, DeletePersonCommandHandler>()
+                    // Add Query handlers
+                    .AddScoped<IQueryHandler<GetPersonByIdCommand>, GetPersonByIdCommandHandler>()
+                    .AddScoped<IQueryHandler<GetPersonBetweenYearCommand>, GetPersonBetweenYearCommandHandler>()
+                    //Creat service
+                    .BuildServiceProvider();
         }
     }
 }
