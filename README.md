@@ -1,1 +1,66 @@
 # CQRS
+Command and Query Responsibility Segregation 
+
+## Que es?
+La idea detrás de CQRS es partir lógicamente el flujo de nuestra aplicación en dos flujos distintos:
+
+- **Commands:** Modifican el estado del dominio.
+- **Queries:** Consultan el estado del dominio.
+
+![CQRS](https://www.iteriam.es/img/blog/ahg_01.png)
+
+## Commands
+Los comandos se deben basar en tareas, en lugar de centrarse en los datos. ("Book hotel room", no "set ReservationStatus to Reserved") y se pueden colocar en una cola para su procesamiento asincrónico, en lugar de procesarse sincrónicamente.
+
+**Carateristicas:**
+- Data Transfer object(DTO)
+- Inmutable
+- Realizan una modificacion en el sistema 
+- No devuelven nada
+
+```C#
+public class AddPersonCommand:ICommand
+{
+     public int Id { get; set; }
+     public string FirstName { get; set; }
+     public string LastName { get; set; }
+     public DateTime DateOfBirth { get; set; }
+}
+``` 
+
+## Queries
+Las queries nunca modifican la base de datos. Una queries devuelve un DTO que no encapsula ningún conocimiento del dominio.
+
+**Carateristicas:**
+- Data Transfer object(DTO)
+- Inmutable
+- Pide algo a el sistema
+- Devuelve una respuesta
+
+```C#
+public class GetPersonBetweenYearCommand:IQuery
+{
+    public int StartYear { get; set; }
+    public int EndYear { get; set; }
+}
+``` 
+
+## Ventajas
+- Puede maximizar el rendimiento, la escalabilidad y la seguridad. La flexibilidad creada al migrar a CQRS permite que un sistema evolucione mejor con el tiempo y evita que los comandos de actualización provoquen conflictos de combinación en el nivel de dominio.
+
+- Escalado Independiente, CQRS permite que las cargas de trabajo de lectura y escritura se escalen de forma independiente y pueden resultar en menos contencion de bloqueos.
+
+- Esquemas de datos optimizados, el lado de lectura usar un equema optmizado para consultas, mientas que el lado de escritura usa un esquema optimizado para actualizaciones.
+
+- Seguridad, es mas facil asegurase de que solo las entidades de domio correctas esten realizando esrituras en los datos.
+
+- Separacion de Intereses, la seaparacion de los lados de lectura y escritura pueden dar como ersultado modelos mas faciles de mantener y flexibles. La mayor parte de la logica empresarial compleja entra en el modelo de escritura. El odelo de ectura puese ser relativamente simple.
+
+## Desventajas
+
+- Complejidad, la idea básica de CQRS es sencilla. Pero puede generar un diseño de aplicación más complejo.
+
+- Coherencia final, si separa las bases de datos de lectura y escritura, los datos de lectura pueden estar obsoletos. El almacén de modelos de lectura debe actualizarse para reflejar los cambios del almacén de modelos de escritura, y puede ser difícil detectar cuándo un usuario ha emitido una solicitud basada en datos de lectura obsoletos.
+
+## Conclusión
+La implementación de CQRS puede Maximizar el rendimiento, la reutilización, la capacidad de prueba, la capacidad de mantenimiento, la seguridad y la escalabilidad. Sin embargo, puede ser muy costoso y complejo implementar este patron si nuestro dominio o las reglas de negocio son simples.
