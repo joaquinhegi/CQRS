@@ -24,10 +24,10 @@ Las cargas de trabajo de lectura y escritura suelen ser asimétricas, con requis
 ## Commands
 Los comandos se deben basar en tareas, en lugar de centrarse en los datos. ("Book hotel room", no "set ReservationStatus to Reserved") y se pueden colocar en una cola para su procesamiento asincrónico, en lugar de procesarse sincrónicamente.
 
-**Carateristicas:**
+**Características:**
 - Data Transfer object(DTO)
 - Inmutable
-- Realizan una modificacion en el sistema 
+- Realizan una modificación en el sistema 
 - No devuelven nada
 
 ```C#
@@ -43,7 +43,7 @@ public class AddPersonCommand:ICommand
 ## Queries
 Las queries nunca modifican la base de datos. Una queries devuelve un DTO que no encapsula ningún conocimiento del dominio.
 
-**Carateristicas:**
+**Características:**
 - Data Transfer object(DTO)
 - Inmutable
 - Pide algo a el sistema
@@ -60,13 +60,13 @@ public class FindPersonBetweenYearCommand:IQuery
 ## Ventajas
 - Puede maximizar el rendimiento, la escalabilidad y la seguridad. La flexibilidad creada al migrar a CQRS permite que un sistema evolucione mejor con el tiempo y evita que los comandos de actualización provoquen conflictos de combinación en el nivel de dominio.
 
-- Escalado Independiente, CQRS permite que las cargas de trabajo de lectura y escritura se escalen de forma independiente y pueden resultar en menos contencion de bloqueos.
+- Escalado Independiente, CQRS permite que las cargas de trabajo de lectura y escritura se escalen de forma independiente y pueden resultar en menos contención de bloqueos.
 
-- Esquemas de datos optimizados, el lado de lectura usar un equema optmizado para consultas, mientas que el lado de escritura usa un esquema optimizado para actualizaciones.
+- Esquemas de datos optimizados, el lado de lectura usar un esquema optimizado para consultas, mientas que el lado de escritura usa un esquema optimizado para actualizaciones.
 
-- Seguridad, es mas facil asegurase de que solo las entidades de domio correctas esten realizando esrituras en los datos.
+- Seguridad, es más fácil asegurase de que solo las entidades de dominio correctas estén realizando escrituras en los datos.
 
-- Separacion de Intereses, la seaparacion de los lados de lectura y escritura pueden dar como ersultado modelos mas faciles de mantener y flexibles. La mayor parte de la logica empresarial compleja entra en el modelo de escritura. El odelo de ectura puese ser relativamente simple.
+- Separación de Intereses, la separación de los lados de lectura y escritura pueden dar como resultado modelos más fáciles de mantener y flexibles. La mayor parte de la lógica empresarial compleja entra en el modelo de escritura. El modelo de escritura puede ser relativamente simple.
 
 ## Desventajas
 
@@ -75,4 +75,4 @@ public class FindPersonBetweenYearCommand:IQuery
 - Coherencia final, si separa las bases de datos de lectura y escritura, los datos de lectura pueden estar obsoletos. El almacén de modelos de lectura debe actualizarse para reflejar los cambios del almacén de modelos de escritura, y puede ser difícil detectar cuándo un usuario ha emitido una solicitud basada en datos de lectura obsoletos.
 
 ## Conclusión
-La implementación de CQRS puede Maximizar el rendimiento, la reutilización, la capacidad de prueba, la capacidad de mantenimiento, la seguridad y la escalabilidad. Sin embargo, puede ser muy costoso y complejo implementar este patron si nuestro dominio o las reglas de negocio son simples.
+La implementación de CQRS puede Maximizar el rendimiento, la reutilización, la capacidad de prueba, la capacidad de mantenimiento, la seguridad y la escalabilidad. Sin embargo, puede ser muy costoso y complejo implementar este patrón si nuestro dominio o las reglas de negocio son simples.
