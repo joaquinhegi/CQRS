@@ -6,16 +6,16 @@ using System.Linq;
 
 namespace Application.Queries.GetPersonBetweenYear
 {
-    public class GetPersonBetweenYearCommandHandler : IQueryHandler<GetPersonBetweenYearCommand>
+    public class FindPersonBetweenYearCommandHandler : IQueryHandler<FindPersonBetweenYearCommand>
     {
         private readonly IRepository _repository;
 
-        public GetPersonBetweenYearCommandHandler(IRepository repository)
+        public FindPersonBetweenYearCommandHandler(IRepository repository)
         {
             _repository = repository;
         }
 
-        public IList<IResult> Handle(GetPersonBetweenYearCommand query)
+        public IList<IResult> Handle(FindPersonBetweenYearCommand query)
         {
             var persons = _repository.Persons.Where(p => p.DateOfBirth.Year >= query.StartYear && p.DateOfBirth.Year <= query.EndYear);
             if (persons == null)

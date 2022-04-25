@@ -6,16 +6,16 @@ using System.Linq;
 
 namespace Application.Queries
 {
-    public class GetPersonByIdCommandHandler: IQueryHandler<GetPersonByIdCommand>
+    public class FindPersonByIdCommandHandler: IQueryHandler<FindPersonByIdCommand>
     {
         private readonly IRepository _repository;
 
-        public GetPersonByIdCommandHandler(IRepository repository)
+        public FindPersonByIdCommandHandler(IRepository repository)
         {
             _repository = repository;
         }
 
-        public IList<IResult> Handle(GetPersonByIdCommand query)
+        public IList<IResult> Handle(FindPersonByIdCommand query)
         {
             var person = _repository.Persons.Where(p => p.Id.Equals(query.Id)).SingleOrDefault();
             if (person == null)

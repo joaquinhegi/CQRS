@@ -31,7 +31,7 @@ namespace UIConsole
                 commandDispatcher.Send(addPerson);
 
                 //Query Person by ID
-                var queryPerson = new GetPersonByIdCommand { Id = 7 };
+                var queryPerson = new FindPersonByIdCommand { Id = 7 };
                 var result = queryDispatcher.Send(queryPerson);
                 foreach (IResult person in result)
                 {
@@ -42,8 +42,8 @@ namespace UIConsole
                 var deletePerson = new DeletePersonCommand { Id = 7 };
                 commandDispatcher.Send(deletePerson);
 
-                //Query All Product
-                var querybetweenPerson = new GetPersonBetweenYearCommand { StartYear = 1980, EndYear = 1995 };
+                //Query Person by Name
+                var querybetweenPerson = new FindPersonBetweenYearCommand { StartYear = 1980, EndYear = 1995 };
                 var resultBetween = queryDispatcher.Send(querybetweenPerson);
                 foreach (IResult person in resultBetween)
                 {
@@ -66,8 +66,8 @@ namespace UIConsole
                     .AddScoped<ICommandHandler<AddPersonCommand>, AddPersonCommandHandler>()
                     .AddScoped<ICommandHandler<DeletePersonCommand>, DeletePersonCommandHandler>()
                     // Add Query handlers
-                    .AddScoped<IQueryHandler<GetPersonByIdCommand>, GetPersonByIdCommandHandler>()
-                    .AddScoped<IQueryHandler<GetPersonBetweenYearCommand>, GetPersonBetweenYearCommandHandler>()
+                    .AddScoped<IQueryHandler<FindPersonByIdCommand>, FindPersonByIdCommandHandler>()
+                    .AddScoped<IQueryHandler<FindPersonBetweenYearCommand>, FindPersonBetweenYearCommandHandler>()
                     //Creat service
                     .BuildServiceProvider();
         }

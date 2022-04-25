@@ -2,7 +2,7 @@
 
 namespace Application.Queries
 {
-    public class GetPersonByIdCommand:IQuery
+    public class FindPersonByIdCommand:IQuery
     {
         public int Id { get; set; }
     }

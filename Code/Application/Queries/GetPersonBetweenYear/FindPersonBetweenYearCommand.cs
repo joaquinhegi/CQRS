@@ -2,7 +2,7 @@
 
 namespace Application.Queries.GetPersonBetweenYear
 {
-    public class GetPersonBetweenYearCommand:IQuery
+    public class FindPersonBetweenYearCommand:IQuery
     {
         public int StartYear { get; set; }
         public int EndYear { get; set; }
