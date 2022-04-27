@@ -31,7 +31,7 @@ Los comandos se deben basar en tareas, en lugar de centrarse en los datos. ("Boo
 - No devuelven nada
 
 ```C#
-public class AddPersonCommand:ICommand
+public class CreatePersonCommand:ICommand
 {
      public int Id { get; set; }
      public string FirstName { get; set; }
