@@ -1,18 +1,18 @@
-using Application.Commands;
+﻿using Application.Commands;
 using Application.Commands.DeletePerson;
-using Application.Commond;
 using Application.Interfaces;
-using Application.Queries.GetPersonBetweenYear;
 using FluentAssertions;
 using FluentAssertions.Extensions;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Application.Test
+namespace Aplication.Test
 {
     public class CommandTest
     {
@@ -26,19 +26,17 @@ namespace Application.Test
         [Fact]
         public async Task TestCreatePersonCommandHandler()
         {
-
             var handler = new CreatePersonCommandHandler(_mockRepo.Object);
-            var createPersonCommand = new CreatePersonCommand 
-                                         { 
-                                             Id = 7, 
-                                             FirstName = "Daiana", 
-                                             LastName = "Fernandez", 
-                                             DateOfBirth = 21.November(1995)
-                                         };
+            var createPersonCommand = new CreatePersonCommand
+            {
+                Id = 7,
+                FirstName = "Daiana",
+                LastName = "Fernandez",
+                DateOfBirth = 21.November(1995)
+            };
 
-            var result = await handler.Handle(createPersonCommand, CancellationToken.None);
-           
-            result.Should().Be(7);
+            await handler.Handle(createPersonCommand);
+
             _mockRepo.Object.Persons.Should().HaveCount(7);
         }
 
@@ -52,9 +50,8 @@ namespace Application.Test
                 Id = 6
             };
 
-            var result = await handler.Handle(deletePersonCommand, CancellationToken.None);
+            await handler.Handle(deletePersonCommand);
 
-            result.Should().Be(6);
             _mockRepo.Object.Persons.Should().HaveCount(5);
         }
 
@@ -68,10 +65,12 @@ namespace Application.Test
                 Id = 100
             };
 
-            await handler.Invoking(y => y.Handle(deletePersonCommand, CancellationToken.None))
-                .Should()
-                .ThrowAsync<ArgumentNullException>()
-                .WithMessage("Value cannot be null. (Parameter 'The person with id does not exist:100')");
+            await handler.Invoking(y => y.Handle(deletePersonCommand))
+                 .Should()
+                 .ThrowAsync<ArgumentNullException>()
+                 .WithMessage("Value cannot be null. (Parameter 'The person with id does not exist:100')");
+
         }
+
     }
 }

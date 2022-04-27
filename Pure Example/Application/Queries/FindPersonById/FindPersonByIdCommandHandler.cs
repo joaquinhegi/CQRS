@@ -3,6 +3,7 @@ using Application.Interfaces;
 using Application.Interfaces.Query;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Application.Queries
 {
@@ -15,9 +16,9 @@ namespace Application.Queries
             _repository = repository;
         }
 
-        public IList<IResult> Handle(FindPersonByIdCommand query)
+        public async Task<IList<IResult>> Handle(FindPersonByIdCommand query)
         {
-            var person = _repository.Persons.Where(p => p.Id.Equals(query.Id)).SingleOrDefault();
+            var person = await Task.Run(() => _repository.Persons.Where(p => p.Id.Equals(query.Id)).SingleOrDefault());
             if (person == null)
                 return null;
 

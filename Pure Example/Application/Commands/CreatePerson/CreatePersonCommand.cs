@@ -3,7 +3,7 @@ using System;
 
 namespace Application.Commands
 {
-    public class AddPersonCommand:ICommand
+    public class CreatePersonCommand:ICommand
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

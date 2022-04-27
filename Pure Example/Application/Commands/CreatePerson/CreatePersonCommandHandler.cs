@@ -4,16 +4,16 @@ using System.Threading.Tasks;
 
 namespace Application.Commands
 {
-    public class AddPersonCommandHandler:ICommandHandler<AddPersonCommand>
+    public class CreatePersonCommandHandler:ICommandHandler<CreatePersonCommand>
     {
         private readonly IRepository _repository;
 
-        public AddPersonCommandHandler(IRepository repository)
+        public CreatePersonCommandHandler(IRepository repository)
         {
             _repository = repository;
         }
 
-        public async Task Handle(AddPersonCommand command)
+        public async Task Handle(CreatePersonCommand command)
         {
             var person = new Person
             {
@@ -23,9 +23,7 @@ namespace Application.Commands
                 DateOfBirth = command.DateOfBirth
             };
 
-            _repository.Persons.Add(person);
-
-            await Task.Run(() => { });
+            await Task.Run(() => _repository.Persons.Add(person));
         }
     }
 }

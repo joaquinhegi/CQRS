@@ -16,13 +16,11 @@ namespace Application.Commands.DeletePerson
 
         public async Task Handle(DeletePersonCommand command)
         {
-            var person = _repository.Persons.Where(p => p.Id == command.Id).SingleOrDefault();
+            var person = await Task.Run(() => _repository.Persons.Where(p => p.Id == command.Id).SingleOrDefault());
             
             if (person == null)  throw new ArgumentNullException($"The person with id does not exist:{command.Id}");
             
-            _repository.Persons.Remove(person);
-
-            await Task.Run(() => { });
+            await Task.Run(() => _repository.Persons.Remove(person));
         }
     }
 }

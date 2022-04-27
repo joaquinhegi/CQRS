@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.IO;
 using Microsoft.Extensions.DependencyInjection;
 using Application.Interfaces;
 using Infrastructure.Repository;
-using Domain.Entities;
 using Application.Commands;
 using Application.Commands.DeletePerson;
 using Application.Queries;
@@ -27,13 +22,13 @@ namespace UIConsole
                 var queryDispatcher = new QueryDispatcher(serviceProvider);
 
                 //Add new Person
-                var addPerson = new AddPersonCommand { Id = 7, FirstName = "Daiana", LastName = "Fernandez", DateOfBirth = new DateTime(1995, 11, 21) };
+                var addPerson = new CreatePersonCommand { Id = 7, FirstName = "Daiana", LastName = "Fernandez", DateOfBirth = new DateTime(1995, 11, 21) };
                 commandDispatcher.Send(addPerson);
 
                 //Query Person by ID
                 var queryPerson = new FindPersonByIdCommand { Id = 7 };
                 var result = queryDispatcher.Send(queryPerson);
-                foreach (IResult person in result)
+                foreach (IResult person in result.Result)
                 {
                     Console.WriteLine(person.ToString());
                 }
@@ -45,7 +40,7 @@ namespace UIConsole
                 //Query Person by Name
                 var querybetweenPerson = new FindPersonBetweenYearCommand { StartYear = 1980, EndYear = 1995 };
                 var resultBetween = queryDispatcher.Send(querybetweenPerson);
-                foreach (IResult person in resultBetween)
+                foreach (IResult person in resultBetween.Result)
                 {
                     Console.WriteLine(person.ToString());
                 }
@@ -63,7 +58,7 @@ namespace UIConsole
                     // Add data base context
                     .AddSingleton<IRepository, Repository>()
                     // Add commands handlers
-                    .AddScoped<ICommandHandler<AddPersonCommand>, AddPersonCommandHandler>()
+                    .AddScoped<ICommandHandler<CreatePersonCommand>, CreatePersonCommandHandler>()
                     .AddScoped<ICommandHandler<DeletePersonCommand>, DeletePersonCommandHandler>()
                     // Add Query handlers
                     .AddScoped<IQueryHandler<FindPersonByIdCommand>, FindPersonByIdCommandHandler>()
