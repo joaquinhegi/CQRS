@@ -1,13 +1,13 @@
-﻿using Application.Interfaces;
-using System;
+﻿using System;
+using Application.Interfaces;
 
-namespace Application.Commands
+namespace Application.Commands.CreatePerson
 {
     public class CreatePersonCommand:ICommand
     {
-        public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        public int Id { get; init; }
+        public string FirstName { get; init; }
+        public string LastName { get; init; }
+        public DateTime DateOfBirth { get; init; }
     }
 }

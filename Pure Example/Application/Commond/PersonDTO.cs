@@ -5,10 +5,10 @@ namespace Application.Commond
 {
     public class PersonDTO:IResult
     {
-        public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        public int Id { get; init; }
+        public string FirstName { get; init; }
+        public string LastName { get; init; }
+        public DateTime DateOfBirth { get; init; }
 
         public override string ToString()
         {

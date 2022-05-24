@@ -5,6 +5,6 @@ namespace Application.Interfaces
 {
     public interface IRepository
     {
-       public IList<Person> Persons { get; set; }
+       public IList<Person> Persons { get; }
     }
 }

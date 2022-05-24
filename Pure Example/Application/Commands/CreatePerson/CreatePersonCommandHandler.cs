@@ -1,8 +1,9 @@
-﻿using Application.Interfaces;
+﻿using System.Threading.Tasks;
+using Application.Interfaces;
+using Application.Interfaces.Command;
 using Domain.Entities;
-using System.Threading.Tasks;
 
-namespace Application.Commands
+namespace Application.Commands.CreatePerson
 {
     public class CreatePersonCommandHandler:ICommandHandler<CreatePersonCommand>
     {

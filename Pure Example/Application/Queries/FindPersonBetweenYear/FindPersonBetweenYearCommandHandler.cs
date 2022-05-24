@@ -1,11 +1,11 @@
-﻿using Application.Commond;
-using Application.Interfaces;
-using Application.Interfaces.Query;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.Commond;
+using Application.Interfaces;
+using Application.Interfaces.Query;
 
-namespace Application.Queries.GetPersonBetweenYear
+namespace Application.Queries.FindPersonBetweenYear
 {
     public class FindPersonBetweenYearCommandHandler : IQueryHandler<FindPersonBetweenYearCommand>
     {

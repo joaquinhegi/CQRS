@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-namespace Application.Interfaces
+namespace Application.Interfaces.Command
 {
-    public interface ICommandHandler<T> where T : ICommand
+    public interface ICommandHandler<in T> where T : ICommand
     {
         Task Handle(T command);
     }

@@ -3,10 +3,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Application.Interfaces;
 using Infrastructure.Repository;
 using Application.Commands;
+using Application.Commands.CreatePerson;
 using Application.Commands.DeletePerson;
+using Application.Interfaces.Command;
 using Application.Queries;
 using Application.Interfaces.Query;
-using Application.Queries.GetPersonBetweenYear;
+using Application.Queries.FindPersonBetweenYear;
+using Application.Queries.FindPersonById;
 
 namespace UIConsole
 {

@@ -1,11 +1,11 @@
-﻿using Application.Commond;
-using Application.Interfaces;
-using Application.Interfaces.Query;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.Commond;
+using Application.Interfaces;
+using Application.Interfaces.Query;
 
-namespace Application.Queries
+namespace Application.Queries.FindPersonById
 {
     public class FindPersonByIdCommandHandler: IQueryHandler<FindPersonByIdCommand>
     {
@@ -18,7 +18,7 @@ namespace Application.Queries
 
         public async Task<IList<IResult>> Handle(FindPersonByIdCommand query)
         {
-            var person = await Task.Run(() => _repository.Persons.Where(p => p.Id.Equals(query.Id)).SingleOrDefault());
+            var person = await Task.Run(() => _repository.Persons.SingleOrDefault(p => p.Id.Equals(query.Id)));
             if (person == null)
                 return null;
 

@@ -1,11 +1,12 @@
 using Application.Commond;
 using Application.Interfaces;
 using Application.Queries;
-using Application.Queries.GetPersonBetweenYear;
 using FluentAssertions;
 using FluentAssertions.Extensions;
 using Moq;
 using System.Threading.Tasks;
+using Application.Queries.FindPersonBetweenYear;
+using Application.Queries.FindPersonById;
 using Xunit;
 
 namespace Aplication.Test

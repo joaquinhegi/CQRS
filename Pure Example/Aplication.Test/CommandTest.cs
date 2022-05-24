@@ -1,15 +1,11 @@
-﻿using Application.Commands;
-using Application.Commands.DeletePerson;
+﻿using Application.Commands.DeletePerson;
 using Application.Interfaces;
 using FluentAssertions;
 using FluentAssertions.Extensions;
 using Moq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
+using Application.Commands.CreatePerson;
 using Xunit;
 
 namespace Aplication.Test
@@ -69,8 +65,6 @@ namespace Aplication.Test
                  .Should()
                  .ThrowAsync<ArgumentNullException>()
                  .WithMessage("Value cannot be null. (Parameter 'The person with id does not exist:100')");
-
         }
-
     }
 }
